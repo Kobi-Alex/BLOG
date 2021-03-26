@@ -1,0 +1,17 @@
+{
+    "name": "samsung/blog",
+    "autoload" :{
+        "psr-4": {
+            "controllers\\": "controllers/",
+            "core\\": "core/",
+            "models\\": "models/"
+        },
+        "files": [
+            "config/config.php"
+        ]
+    },
+    "require":{
+        "php": "^8.0",
+        "phpmailer/phpmailer": "^6.3"
+    }
+}
