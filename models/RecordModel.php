@@ -15,9 +15,9 @@ class RecordModel extends BaseModel
     public $user_id;
 
     static $table = 'records';
-
+    
     //const ROLE = ['administrator' => 'Administrator', 'follower' => 'Follower', 'author' => 'Author'];
-
+    
     public function rules()
     {
         return [

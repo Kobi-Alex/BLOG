@@ -163,7 +163,7 @@ abstract class BaseModel
         foreach ($params as $key => $value) {
             $sql_where[] = "`$key`='$value'";
         }
-        $sql_where[] = implode(' AND ', $sql_where);
+        $sql_where = implode(' AND ', $sql_where);
         $sql = "DELETE FROM $table WHERE $sql_where";
         $stmt = $conn->prepare($sql);
         return $stmt->execute();

@@ -22,8 +22,7 @@ class UserModel extends BaseModel
         return [
             'required' => ['email', 'nick', 'password'],
             'email' => ['email'],
-            'string' => ['nick', 'password'] // запитати за role
+            'string' => ['nick', 'password']
         ];                                                                                              
     }
-
 }

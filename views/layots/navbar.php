@@ -21,9 +21,9 @@
                             MY RECORDS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">My records</a>
+                            <a class="dropdown-item" href="/blog/indexAuthor">My records</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="blog/create">Add new record</a>
+                            <a class="dropdown-item" href="/blog/create">Add new record</a>
                         </div>
                     </li>
             <?php
