@@ -46,9 +46,8 @@
 
 <?php
     // if(!isset($_SESSION)) session_start(); 
-    if(isset($_SESSION['success'])) // не працює запитати
-    {
-    ?>
+    if (isset($_SESSION['success'])) {
+?>
         <div class="alert alert-success alert-dismissible fade show position-relation" role="alert">
           <strong>INFO!</strong> <?=$_SESSION['success'] ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

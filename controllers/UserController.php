@@ -14,14 +14,7 @@
             $this->layots = 'navbar';
             if(!isset($_SESSION)) session_start();
         }
-        public function actionIndex()
-        {
-            echo __CLASS__;
-        }
-        // public function actionCreate()
-        // {
-        //     echo __CLASS__ . 'create';
-        // }
+        
         public function actionLogin()
         {
             $this->layots = NULL;
@@ -40,9 +33,6 @@
                         'nick'=>$user->nick,
                         'url_avatar'=>$user->url_avatar
                     ]);
-                    // $_SESSION['role']=$user->role;
-                    // $_SESSION['url_avatar']=$user->url_avatar;
-                    // $_SESSION['nick']=$user->nick;
                     $this->redirect('/blog');
                 } else {
                     $_SESSION['error'] = 'Login are password is not correct!!';
@@ -69,7 +59,9 @@
                 $user = UserModel::find()
                     ->where(['email'=> $model->email])
                     ->one();
-                if (!$user) {
+                if ($user) {
+                    $_SESSION['error'] = 'User with this email is alredy registered';
+                } else {
                     $model->password = $this->passwordHasher($model->password);
                     if ($_FILES['avatar']['name'] != "") {
                         $fileExtention = explode('.', $_FILES['avatar']['name']);
@@ -91,14 +83,10 @@
                     } else {
                         $_SESSION['error'] = 'Error';
                     }
-                } else {
-                    $_SESSION['error'] = 'User with this email is alredy registered';
-                    // $this->redirect('/blog');
+                    $this->redirect('/blog');
                 }
                 // var_dump($user);
                 // die();
-
-                $this->redirect('/blog');
             }
             $this->render('create', ['model' => $model]);
         }
@@ -149,7 +137,6 @@
             //1.Перевырити чи данний клористувач не підтвердив свою елю адресу
             $user = UserModel::find()->where(['id' => $_GET['user'], 'confirm'=>1])->one();
             if ($user) {
-                // redirect->...........
                 echo('Link is not exist!!!');
                 die();
             }
@@ -178,19 +165,18 @@
 
         public function actionEdit()
         {
+            $this->layots = NULL;
             $model = new UserModel;
             $user = UserModel::find()
                     ->where(['id' => $_GET['id']])
                     ->one();
-
             foreach ($user as $key => $value) {
                 $model->{$key} = $value;
             }
 
-            //місце для поста
-
             if ($model->loadPost() && $model->validate()) {
-                $model->password = $this->passwordHasher($model->password);
+
+                // $model->password = $this->passwordHasher($model->password);
                 if ($_FILES['avatar']['name'] != '') {
                     if ($model->url_avatar != 'avatar/avatar2.png') {
                         unlink($model->url_avatar);
@@ -202,6 +188,13 @@
                     }
                     move_uploaded_file($_FILES['avatar']['tmp_name'], 'avatar/' . $fileName);
                     $model->url_avatar = 'avatar/' . $fileName;
+
+                    $_SESSION['user'] = json_encode([
+                        'email'=>$user->email,
+                        'role'=>$user->role,
+                        'nick'=>$user->nick,
+                        'url_avatar'=> $model->url_avatar
+                    ]);
                 }
                 if ($model->update(['id' => $user->id])){
                     $_SESSION['success'] = 'OK';
@@ -213,7 +206,14 @@
             }
 
             $this->render('create', ['model' => $model]);
+        }
 
-
+        public function actionIndex()
+        {
+            $users = UserModel::find()
+                    ->all();
+                    
+            $this->layots = 'navbar';
+            $this->render('index', ['users' => $users]);
         }
     }       

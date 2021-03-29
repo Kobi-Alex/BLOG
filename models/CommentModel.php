@@ -17,8 +17,6 @@ class CommentModel extends BaseModel
 
     static $table = 'comments';
 
-    //const ROLE = ['administrator' => 'Administrator', 'follower' => 'Follower', 'author' => 'Author'];
-
     public function rules()
     {
         return [

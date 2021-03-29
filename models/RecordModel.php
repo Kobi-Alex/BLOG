@@ -16,14 +16,11 @@ class RecordModel extends BaseModel
 
     static $table = 'records';
     
-    //const ROLE = ['administrator' => 'Administrator', 'follower' => 'Follower', 'author' => 'Author'];
-    
     public function rules()
     {
         return [
             // 'required' => ['text'],
             // 'string' => ['text']   // перевірка чи є стрічкою
-            // 'email' => ['email'],
         ];                                                                                              
     }
 

@@ -1,8 +1,19 @@
 <div class="bg-success position-fixed w-100" style="height:100%">
     <form method="POST" enctype="multipart/form-data">  
         <div class="d-flex flex-column align-items-center">
+            
             <div class="my-4">
-                <img class="mb-2 mt-2" src="../assets/Image.svg" alt="" width="72" height="72">
+            <?php
+                if(!isset($_SESSION)) {
+            ?>
+                <img id="photo" class="mb-2 mt-2 rounded-circle" src="/<?=$model->url_avatar?>" alt="" width="72" height="72">
+            <?php
+                } else {
+            ?>
+                <img id="photo" class="mb-2 mt-2 rounded-circle" src="/avatar/avatar2.png" alt="" width="72" height="72">
+            <?php
+                }
+            ?>
             </div>     
     
             <div class="form-group w-25 my-0">
@@ -17,13 +28,11 @@
             </div>
     
             <input class="form-control w-25 my-2" type="text" placeholder= "Default input" value="<?=$model->nick?>" name="nick"></input>
-    
-            <div class="input-group input-group-sm mb-1 w-25">
-                <!-- <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
-                </div> -->
+
+            <div class="input-group input-group-sm mb-1 w-25" >
+
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" name="avatar">
+                    <input type="file" class="custom-file-input" id="file" aria-describedby="inputGroupFileAddon03" name="avatar">
                     <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
                 </div>
             </div>
@@ -33,3 +42,19 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    $('#file').change(function(){
+        var file = document.getElementById('file').files;
+        if(file.length == null) document.getElementById('photo').setAttribute("src", "/avatar/avatar2.png");
+
+        if(file.length > 0) {
+            var file_reader = new FileReader();
+            file_reader.onload = function(){
+                document.getElementById('photo').setAttribute("src", event.target.result);
+            };
+        }
+        file_reader.readAsDataURL(file[0]);
+    });
+</script>

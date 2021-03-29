@@ -28,7 +28,7 @@
                 <?php
                     if (isset($_SESSION['auth'])) {
                 ?>
-                    <a class="btn btn-secondary btn-sm w-25 mb-4" href="/blog/comment?id=<?=$_GET['id']?>&author=<?=$_GET['author']?>" role="button">Add comment</a> 
+                    <a class="btn btn-secondary btn-sm w-25 mb-4" href="/comment/comment?id=<?=$_GET['id']?>&author=<?=$_GET['author']?>" role="button">Add comment</a> 
                 <?php
                     }
                 ?> 
@@ -114,7 +114,7 @@
     function actionUpdateCommentLikeDislike(id, type)
     {
         var host = window.location.protocol + '//' + window.location.host;
-        $.post(host + "/blog/CommentLikeDislikeRecord", {
+        $.post(host + "/comment/CommentLikeDislikeRecord", {
             id: id,
             type: type
 
@@ -128,6 +128,4 @@
             }
         })
     }
-
-    
 </script>

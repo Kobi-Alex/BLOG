@@ -47,21 +47,12 @@ abstract class BaseModel
                     }
                     break;
                 case 'string':
-                    if (strlen($this->{$fields[0]}) < 2 || strlen($this->{$fields[0]}) > 25) {
-                        $error_message .= $fields[0] . ' too short are too long. Please correct!! <br>'; 
-                        $error = true;
+                    foreach ($fields as $field) {
+                        if (!is_string($this->{$field})) {
+                            $error_message .= $field . ' is required. <br>'; 
+                            $error = true;
+                        }
                     }
-                    if (strlen($this->{$fields[1]}) < 5 ) {
-                        $error_message .= $fields[1] . ' too short. Please correct!! <br>'; 
-                        $error = true;
-                    }
-                    if (!preg_match("#[0-9]+#", $this->{$fields[1]})) {
-                        $error_message .= $fields[1] . ' must include at least one number!! <br>'; 
-                        $error = true;
-                    }
-                    if (!preg_match("#[a-zA-Z]+#", $this->{$fields[1]})) {
-                        $error_message .= $fields[1] . ' must include at least one letter!! <br>';
-                    }  
                     break;
                 default:
                     $error_message .= $key . ' do not find!!';
